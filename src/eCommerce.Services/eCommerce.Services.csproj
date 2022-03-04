@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\eCommerce.Entities\eCommerce.Entities.csproj" />
+    <ProjectReference Include="..\eCommerce.Helper\eCommerce.Helper.csproj" />
+    <ProjectReference Include="..\eCommerce.Security\eCommerce.Security.csproj" />
+  </ItemGroup>
+
+</Project>
