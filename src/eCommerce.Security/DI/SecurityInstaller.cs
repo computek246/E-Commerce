@@ -42,6 +42,8 @@ namespace eCommerce.Security.DI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
+            SampleData.Initialize(app.ApplicationServices).ConfigureAwait(true);
         }
     }
 }

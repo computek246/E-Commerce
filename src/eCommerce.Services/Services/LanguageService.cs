@@ -28,7 +28,8 @@ namespace eCommerce.Services.Services
 
         public CultureInfo[] GetCultures()
         {
-            return _context.Languages.ToList().Select(x => new CultureInfo(x.LanguageCulture)).ToArray();
+            return _context.Languages.Where(e => e.IsActive).OrderBy(e => e.DisplayOrder)
+                .ToList().Select(x => new CultureInfo(x.LanguageCulture)).ToArray();
         }
     }
 }

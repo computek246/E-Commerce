@@ -18,7 +18,7 @@ namespace eCommerce.Security.Entities
         public string FullName => $"{FirstName} {LastName}".Trim();
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string UserType { get; set; }
+        public int UserType { get; set; }
         public string UserPassword { get; set; }
         public int? CreatorId { get; set; }
         public DateTime CreationDate { get; set; }

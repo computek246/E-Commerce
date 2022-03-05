@@ -1,6 +1,9 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using eCommerce.Common.Installers;
 using eCommerce.Helper.ExtensionMethod;
+using eCommerce.Security.Context;
 using eCommerce.Services.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,13 +26,18 @@ namespace eCommerce.Services.DI
             services.AddScoped<ILanguageService, LanguageService>();
             services.AddScoped<ILocalizationService, LocalizationService>();
 
-            var cultures = services.GetService<ILanguageService>().GetCultures();
-
-            services.Configure<RequestLocalizationOptions>(options =>
+            services.GetService<ApplicationDbContext>(context =>
             {
-                options.DefaultRequestCulture = new RequestCulture(cultures.FirstOrDefault());
-                options.SupportedCultures = cultures;
-                options.SupportedUICultures = cultures;
+                if (!context.Database.CanConnect()) return;
+
+                var cultures = services.GetService<ILanguageService>().GetCultures();
+                services.Configure<RequestLocalizationOptions>(options =>
+                {
+                    options.DefaultRequestCulture = new RequestCulture(cultures.FirstOrDefault());
+                    options.SupportedCultures = cultures;
+                    options.SupportedUICultures = cultures;
+                });
+
             });
         }
 
