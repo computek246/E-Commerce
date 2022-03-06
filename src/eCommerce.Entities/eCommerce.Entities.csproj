@@ -5,15 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Customers\" />
-    <Folder Include="Discounts\" />
-    <Folder Include="Directory\" />
-    <Folder Include="Logging\" />
-    <Folder Include="Stores\" />
-    <Folder Include="Payments\" />
-    <Folder Include="Shipping\" />
     <Folder Include="Security\" />
-    <Folder Include="Orders\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -29,7 +29,7 @@ namespace eCommerce.Helper.ExtensionMethod
         }
 
         /// <summary>
-        ///     LINQ IEnumerable AsHierarchy() extension method
+        /// LINQ IEnumerable AsHierarchy() extension method
         /// </summary>
         /// <typeparam name="TEntity">Entity class</typeparam>
         /// <typeparam name="TProperty">Property of entity class</typeparam>
@@ -43,6 +43,23 @@ namespace eCommerce.Helper.ExtensionMethod
             where TEntity : class
         {
             return CreateHierarchy(allItems, default, idProperty, parentIdProperty, 0);
+        }
+
+
+        /// <summary>
+        /// LINQ IEnumerable Flatten()
+        /// </summary>
+        /// <typeparam name="TNode"></typeparam>
+        /// <param name="nodes"></param>
+        /// <param name="childrenSelector"></param>
+        /// <returns>IEnumerable of entities</returns>
+        public static IEnumerable<TNode> Flatten<TNode>(
+            this IEnumerable<TNode> nodes,
+            Func<TNode, IEnumerable<TNode>> childrenSelector
+        )
+        {
+            if (nodes == null) throw new ArgumentNullException(nameof(nodes));
+            return nodes.SelectMany(c => childrenSelector(c).Flatten(childrenSelector)).Concat(nodes);
         }
     }
 }

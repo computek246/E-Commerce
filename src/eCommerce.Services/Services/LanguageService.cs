@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using eCommerce.Entities.Localization;
@@ -28,8 +29,17 @@ namespace eCommerce.Services.Services
 
         public CultureInfo[] GetCultures()
         {
-            return _context.Languages.Where(e => e.IsActive).OrderBy(e => e.DisplayOrder)
-                .ToList().Select(x => new CultureInfo(x.LanguageCulture)).ToArray();
+            try
+            {
+                return _context.Languages.Where(e => e.IsActive).OrderBy(e => e.DisplayOrder)
+                    .ToList().Select(x => new CultureInfo(x.LanguageCulture)).ToArray();
+            }
+            catch (Exception)
+            {
+                //ignore
+
+                return Array.Empty<CultureInfo>();
+            }
         }
     }
 }

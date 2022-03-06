@@ -66,8 +66,6 @@ namespace eCommerce.Security.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     LanguageCulture = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    UniqueSeoCode = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
-                    FlagImageFileName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Rtl = table.Column<bool>(type: "bit", nullable: false),
                     DisplayOrder = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),

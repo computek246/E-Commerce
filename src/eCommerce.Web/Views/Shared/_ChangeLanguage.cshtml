@@ -1,10 +1,9 @@
 ﻿@using Microsoft.AspNetCore.Localization
-@inject IOptions<RequestLocalizationOptions> _requestLocalizationOptions
 
 @{
     var returnUrl = ViewContext.HttpContext.Request.Path;
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
-    var cultureItems = _requestLocalizationOptions.Value.SupportedUICultures
+    var cultureItems = LanguageService.GetCultures()
     .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName }).ToList();
 }
 

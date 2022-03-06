@@ -10,7 +10,7 @@ using eCommerce.Security.Context;
 namespace eCommerce.Security.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220304235156_CreateIdentitySchema")]
+    [Migration("20220306083916_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,10 +37,6 @@ namespace eCommerce.Security.Migrations
                     b.Property<int>("DisplayOrder")
                         .HasColumnType("int");
 
-                    b.Property<string>("FlagImageFileName")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -63,10 +59,6 @@ namespace eCommerce.Security.Migrations
 
                     b.Property<bool>("Rtl")
                         .HasColumnType("bit");
-
-                    b.Property<string>("UniqueSeoCode")
-                        .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
@@ -364,7 +356,7 @@ namespace eCommerce.Security.Migrations
             modelBuilder.Entity("eCommerce.Entities.Localization.LocaleStringResource", b =>
                 {
                     b.HasOne("eCommerce.Entities.Localization.Language", "Language")
-                        .WithMany()
+                        .WithMany("StringResources")
                         .HasForeignKey("LanguageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -433,6 +425,11 @@ namespace eCommerce.Security.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("eCommerce.Entities.Localization.Language", b =>
+                {
+                    b.Navigation("StringResources");
                 });
 
             modelBuilder.Entity("eCommerce.Security.Entities.Role", b =>

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace eCommerce.Web.DI
@@ -17,6 +18,13 @@ namespace eCommerce.Web.DI
 
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+
+            services.AddLocalization();
+            services.AddControllersWithViews()
+                .AddViewLocalization()
+                .AddDataAnnotationsLocalization();
+
+            services.AddRazorPages();
             services.AddMvc(options =>
             {
                 options.Filters.Add<ExceptionFilter>();
@@ -24,17 +32,24 @@ namespace eCommerce.Web.DI
             })
             .SetCompatibilityVersion(CompatibilityVersion.Latest)
             .AddFluentValidation()
-                .AddNewtonsoftJson(options =>
-                {
-                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
-                });
+            .AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Include;
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
+
+            services.AddDatabaseDeveloperPageExceptionFilter();
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseMigrationsEndPoint();
             }
             else
             {
@@ -47,6 +62,8 @@ namespace eCommerce.Web.DI
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseRequestLocalization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

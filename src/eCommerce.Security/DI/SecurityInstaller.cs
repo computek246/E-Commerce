@@ -19,8 +19,10 @@ namespace eCommerce.Security.DI
 
         public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DefaultConnection");
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            });
 
             services.AddIdentity<User, Role>()
                 .AddDefaultUI()
@@ -43,7 +45,7 @@ namespace eCommerce.Security.DI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            SampleData.Initialize(app.ApplicationServices).ConfigureAwait(true);
+            SampleData.Initialize(app.ApplicationServices).Wait();
         }
     }
 }

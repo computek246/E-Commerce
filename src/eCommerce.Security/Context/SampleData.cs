@@ -76,18 +76,14 @@ namespace eCommerce.Security.Context
                     Name = "English",
                     LanguageCulture = "en-US",
                     DisplayOrder = 0,
-                    FlagImageFileName = "en.png",
                     IsActive = true,
-                    UniqueSeoCode = "en"
                 },
                 new()
                 {
                     Name = "Arabic",
                     LanguageCulture = "ar-EG",
                     DisplayOrder = 1,
-                    FlagImageFileName = "ar.png",
                     IsActive = true,
-                    UniqueSeoCode = "ar",
                     Rtl = true
                 },
                 new()
@@ -95,18 +91,14 @@ namespace eCommerce.Security.Context
                     Name = "French",
                     LanguageCulture = "fr-FR",
                     DisplayOrder = 2,
-                    FlagImageFileName = "fr.png",
                     IsActive = true,
-                    UniqueSeoCode = "fr"
                 },
                 new()
                 {
                     Name = "German",
                     LanguageCulture = "de-DE",
                     DisplayOrder = 3,
-                    FlagImageFileName = "de.png",
                     IsActive = true,
-                    UniqueSeoCode = "de"
                 }
             };
 
@@ -120,32 +112,34 @@ namespace eCommerce.Security.Context
         {
             _logger.LogDebug(nameof(AddLocaleStringResources));
 
+            const string welcome = "home.index.welcome";
+
             var list = new List<LocaleStringResource>
             {
                 new()
                 {
                     LanguageId = 1,
-                    ResourceName = "home.index.welcome",
+                    ResourceName = welcome,
                     ResourceValue = "Welcome"
                 },
                 new()
                 {
                     LanguageId = 2,
-                    ResourceName = "home.index.welcome",
-                    ResourceValue = "Bienvenue"
+                    ResourceName = welcome,
+                    ResourceValue = "اهلا وسهلا"
                 },
                 new()
                 {
                     LanguageId = 3,
-                    ResourceName = "home.index.welcome",
-                    ResourceValue = "Willkommen"
+                    ResourceName = welcome,
+                    ResourceValue = "Bienvenue"
                 },
                 new()
                 {
                     LanguageId = 4,
-                    ResourceName = "home.index.welcome",
-                    ResourceValue = "أهلا بك"
-                }
+                    ResourceName = welcome,
+                    ResourceValue = "Willkommen"
+                },
             };
 
             var entities = list.Where(x => !context.LocaleStringResources.Select(e => e.ResourceName).Contains(x.ResourceName));
@@ -153,6 +147,6 @@ namespace eCommerce.Security.Context
 
             await context.SaveChangesAsync();
         }
-        
+
     }
 }
